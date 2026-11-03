@@ -1,0 +1,62 @@
+# nixpacks.toml
+[phases.setup]
+nixPkgs = [
+  "python311",
+  "chromium",
+  "chromedriver",
+  # Chromium runtime libs
+  "nss",
+  "nspr",
+  "atk",
+  "at-spi2-atk",
+  "cups",
+  "libdrm",
+  "libxkbcommon",
+  "libxcomposite",
+  "libxdamage",
+  "libxrandr",
+  "libgbm",
+  "pango",
+  "cairo",
+  "alsa-lib",
+  "dbus",
+  "expat",
+  "glib",
+  "gtk3",
+  "libx11",
+  "libxcb",
+  "libxext",
+  "libxi",
+  "libxrender",
+  "libxtst",
+  "zlib",
+  "fontconfig",
+  "freetype",
+  "harfbuzz",
+  "icu",
+]
+
+[phases.install]
+cmds = [
+  "python -m venv /opt/venv",
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt",
+]
+
+[phases.build]
+cmds = [
+  "echo build complete",
+]
+
+[start]
+cmd = "python hostserver.py --host 0.0.0.0 --port $PORT --no-tunnel --proxies proxies.txt --warm-pages ${WAF_WARM_PAGES:-2} --solve-timeout ${WAF_SOLVE_TIMEOUT:-45}"
+
+[variables]
+PYTHONUNBUFFERED = "1"
+PYTHONIOENCODING = "utf-8"
+WAF_DEBUG = "0"
+WAF_CYCLE_EVERY = "100"
+WAF_WARM_PAGES = "2"
+WAF_SOLVE_TIMEOUT = "45"
+WAF_TIMEOUT_WATCHDOG = "6"
+WAF_DEAD_BATCH = "40"
