@@ -3,19 +3,18 @@
 nixPkgs = [
   "python311",
   "chromium",
-  "chromedriver",
-  # Chromium runtime libs
+  # --- Chromium runtime dependencies ---
   "nss",
   "nspr",
   "atk",
-  "at-spi2-atk",
+  "at-spi2-core",
   "cups",
   "libdrm",
   "libxkbcommon",
   "libxcomposite",
   "libxdamage",
   "libxrandr",
-  "libgbm",
+  "mesa",              # provides libgbm.so.1 (was: libgbm — removed from nixpkgs)
   "pango",
   "cairo",
   "alsa-lib",
@@ -29,6 +28,7 @@ nixPkgs = [
   "libxi",
   "libxrender",
   "libxtst",
+  "libxfixes",
   "zlib",
   "fontconfig",
   "freetype",
